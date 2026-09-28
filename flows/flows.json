@@ -1,0 +1,114 @@
+[
+    {
+        "id": "5050a4e41abd27c8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "db9792c8100366b6",
+        "type": "inject",
+        "z": "5050a4e41abd27c8",
+        "name": "inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 950,
+        "y": 400,
+        "wires": [
+            [
+                "094a08644f66cfba"
+            ]
+        ]
+    },
+    {
+        "id": "e38bd9ec60621d29",
+        "type": "debug",
+        "z": "5050a4e41abd27c8",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "094a08644f66cfba",
+        "type": "function",
+        "z": "5050a4e41abd27c8",
+        "name": "aleatori",
+        "func": "msg.payload = Math.random();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 480,
+        "wires": [
+            [
+                "e38bd9ec60621d29",
+                "f61b969cb3c9a5a6"
+            ]
+        ]
+    },
+    {
+        "id": "c3a9f3f6b59c0b52",
+        "type": "file",
+        "z": "5050a4e41abd27c8",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1320,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f61b969cb3c9a5a6",
+        "type": "function",
+        "z": "5050a4e41abd27c8",
+        "name": "timestamp",
+        "func": "msg.filename = '/home/k/random-log.txt';\nmsg.payload = JSON.stringify({ value: msg.payload, timestamp: Date.now() }) + '\\n';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 480,
+        "wires": [
+            [
+                "c3a9f3f6b59c0b52"
+            ]
+        ]
+    }
+]
